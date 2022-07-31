@@ -7,5 +7,5 @@ rename the video you want to input as "`getVideo.mp4`"
 
 rename audio you want to input as "`yolo.mp3`"
 
-and just run the script no argument you have to provide.
+and just run the script "`Mp4toWebm.sh`" no argument you have to provide.
 
