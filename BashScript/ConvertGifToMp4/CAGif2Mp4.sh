@@ -28,20 +28,31 @@ fi
 count=0;
 for FILE in *.gif
 do
+
+sleep 2
+if [ -d "$FrameDirectory" ] 
+then
+  echo "Clear Frame Dir"
+  rm Frames/*; # remove all files from Frames and WebMs to prevent errors
+else 
+  mkdir $FrameDirectory;
+fi
+sleep 2
+
     #count=$(( $count + 1  ))
     #echo $file"$count"
     echo $FILE; 
     #mv $FILE $filename
 
-ffmpeg -i "$FILE"  ./Frames/output_%04d.png 2>NUL ; # convert video into frames at 30fps, save output files to Frames
+ffmpeg -i "$FILE"  ./Frames/output_%05d.png 2>NUL ; # convert video into frames at 30fps, save output files to Frames
 if [ -e "$NullFile" ] 
 then
   rm ./NUL;
 fi
 
 
-#ffmpeg  -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -r 30 -i ./Frames/output_%04d.png -pix_fmt yuv420p output.mp4
-ffmpeg -i ./Frames/output_%04d.png -vcodec libx264 \
+#ffmpeg  -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -r 30 -i ./Frames/output_%05d.png -pix_fmt yuv420p output.mp4
+ffmpeg -i ./Frames/output_%05d.png -vcodec libx264 \
 -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -r 24 \
  -y -an $OutputVideo".mp4" 
 
@@ -57,4 +68,3 @@ mv $OutputVideo".mp4" $RenameFile
 mv $RenameFile $OutputFolder
 
 done
-
