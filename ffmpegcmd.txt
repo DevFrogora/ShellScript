@@ -1,0 +1,19 @@
+ffmpeg -i input.mov output.mp4
+
+ffmpeg -I input.mp4 -ss 00:01:00 -to 00:02:00 -c copy output.mp4 #snip
+
+
+
+
+https://www.youtube.com/watch?v=FGggkTuih2g
+
+yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' https://www.youtube.com/watch?v=FGggkTuih2g
+
+ffmpeg -i input.mp4 -ss 00:01:00 -to 00:02:00 -c copy output.mp4
+ffmpeg -i output.mp4 -i Narengi_view.mp4 -filter_complex "[0]colorkey=color=00ff00:similarity=0.1[keyed];[1][keyed]overlay" out.mp4
+
+ffmpeg -i main_video.mp4 -i green_screen_video.webm -filter_complex "[1:v]chromakey=color=0x00ff00:similarity=0.3:blend=0.0[ckout];[0:v][ckout]overlay[out]" -map "[out]" -map 0:a -c:v libx264 -pix_fmt yuv420p output.avi
+
+ffmpeg -i main_video.mp4 -i green_screen_video.webm -filter_complex "[1:v]chromakey=color=0x00ff00:similarity=0.3:blend=0.0[ckout];[0:v][ckout]overlay[out]" -map "[out]" -map 1:a -c:v libx264 -c:a copy output.mp4
+
+ffmpeg -i output.mp4 -t 20 -c copy outpu.mp4   # get first 20 sec of video
